@@ -102,7 +102,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kp:nth-child(3) .vis{background:linear-gradient(120deg,#0a0716 0%,#2b0b3d 55%,#a3249f 100%)}
 .kp:nth-child(4) .vis{background:linear-gradient(120deg,#05101a 0%,#062d3d 55%,#0f8ea3 100%)}
 .kp .tx{padding:20px 18px 22px;display:flex;flex-direction:column;gap:10px;min-width:0;flex:1}
-.kp .tx > span:first-child{position:absolute;top:-186px;left:14px}
+.kp .tx > span:first-child{position:absolute;top:-178px;left:22px}
 .kp h3{margin:2px 0 0;font-family:var(--f-disp);font-weight:500;font-size:clamp(26px,2.4vw,34px);line-height:1;letter-spacing:-.02em}
 .kp .kt{font-weight:700;font-size:16px;margin:0}
 .kp p{margin:0;color:#aab1c9;font-size:13.5px;line-height:1.65}
@@ -110,9 +110,35 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .kp .st::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan)}
 .kp .chip{background:rgba(4,6,14,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 @media (max-width:1100px){.kps{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media (max-width:640px){.kps{grid-template-columns:1fr}.kp .vis{height:190px}.kp .tx > span:first-child{top:-176px}}
+@media (max-width:640px){.kps{grid-template-columns:1fr}.kp .vis{height:190px}.kp .tx > span:first-child{top:-168px}}
 
 .kp .vis canvas.ring{position:absolute;inset:0;width:100%;height:100%;display:block}
+/* HUD line-art visuals */
+.kp .vis,.kp:nth-child(n) .vis{--ln:#45e3ef;background:#06080f;padding:14px;border-bottom:1px dashed rgba(255,255,255,.12)}
+.kv{position:relative;height:100%;border:1px solid rgba(255,255,255,.13);background:linear-gradient(180deg,rgba(69,227,239,.03),transparent 60%),#080b13}
+.kv::after{content:"";position:absolute;inset:-3px;pointer-events:none;background:linear-gradient(var(--ln),var(--ln)) 0 0/5px 5px no-repeat,linear-gradient(var(--ln),var(--ln)) 100% 0/5px 5px no-repeat,linear-gradient(var(--ln),var(--ln)) 0 100%/5px 5px no-repeat,linear-gradient(var(--ln),var(--ln)) 100% 100%/5px 5px no-repeat;opacity:.9}
+.kv svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+.kv .d{fill:none;stroke:rgba(150,200,215,.32);stroke-width:1}
+.kv .l{fill:none;stroke:var(--ln);stroke-width:1.6;stroke-linecap:round;filter:drop-shadow(0 0 3px var(--ln)) drop-shadow(0 0 8px rgba(69,227,239,.55))}
+.kv .f{fill:var(--ln);filter:drop-shadow(0 0 4px var(--ln)) drop-shadow(0 0 9px rgba(69,227,239,.6))}
+.kv .bb{fill:var(--ln);fill-opacity:.55}
+.kv .bb.pulse{animation:kvbb 2.6s ease-in-out infinite}
+@keyframes kvbb{0%,100%{fill-opacity:.45}50%{fill-opacity:.85}}
+.kv .ic{fill:none;stroke:rgba(190,225,235,.55);stroke-width:1.3}
+.kv .ic.on{stroke:var(--ln)}
+.kv text{font-family:var(--f-mono);fill:rgba(190,225,235,.6);font-size:7px;letter-spacing:.14em}
+.kv .dg{font-size:17px;fill:rgba(220,245,250,.92);letter-spacing:.04em;font-weight:500}
+.kv .dg.on{fill:var(--ln);filter:drop-shadow(0 0 4px var(--ln))}
+.kv .draw{stroke-dasharray:260;stroke-dashoffset:260;animation:kvdraw 5s ease-in-out infinite}
+@keyframes kvdraw{0%{stroke-dashoffset:260}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:-260}}
+.kv .spin{transform-box:fill-box;transform-origin:center;animation:kvspin 9s linear infinite}
+.kv .spin.r{animation-duration:14s;animation-direction:reverse}
+@keyframes kvspin{to{transform:rotate(360deg)}}
+.kv .pulse{animation:kvpulse 2.4s ease-in-out infinite}
+@keyframes kvpulse{0%,100%{opacity:.35}50%{opacity:1}}
+.kv .slide{animation:kvslide 4.5s ease-in-out infinite}
+@keyframes kvslide{0%,15%{transform:translate(22px,-16px);opacity:0}35%{opacity:1}55%,85%{transform:translate(0,0);opacity:1}100%{transform:translate(0,0);opacity:0}}
+@media (prefers-reduced-motion:reduce){.kv *{animation:none!important}.kv .draw{stroke-dashoffset:0}.kv animateMotion{display:none}}
 /* ---------- integrity ---------- */
 .integ{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,5vw,70px);align-items:center;padding-bottom:clamp(90px,11vw,150px)}
 .sec-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;color:var(--cyan);margin:0 0 14px}
@@ -385,6 +411,16 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
 .radial-box{position:relative;width:100%;max-width:1160px;margin:0 auto;overflow:hidden;border-radius:24px;border:1px solid var(--line);background:radial-gradient(50% 60% at 50% 50%,rgba(61,92,255,.16),transparent 70%),radial-gradient(40% 50% at 90% 20%,rgba(140,80,255,.12),transparent 70%),#05071a;padding:clamp(8px,2vw,24px)}
 
 #radial{display:block;width:100%;height:auto}
+.radial-box{perspective:1500px;perspective-origin:50% 35%;background:radial-gradient(40% 45% at 50% 46%,rgba(61,92,255,.22),transparent 70%),linear-gradient(180deg,#03040f 0%,#060824 46%,#0a0d34 54%,#04050f 100%)}
+.room{position:absolute;inset:0;pointer-events:none;overflow:hidden;perspective:520px;perspective-origin:50% 48%}
+.room i{position:absolute;display:block;background-image:linear-gradient(rgba(110,140,255,.42) 1px,transparent 1px),linear-gradient(90deg,rgba(110,140,255,.42) 1px,transparent 1px);background-size:56px 56px;background-position:center}
+.room .fl{left:-80%;right:-80%;bottom:0;height:150%;transform-origin:50% 100%;transform:rotateX(84deg);-webkit-mask-image:linear-gradient(to top,#000 0%,rgba(0,0,0,.5) 35%,transparent 75%);mask-image:linear-gradient(to top,#000 0%,rgba(0,0,0,.5) 35%,transparent 75%)}
+.room .cl{left:-80%;right:-80%;top:0;height:150%;transform-origin:50% 0%;transform:rotateX(-84deg);opacity:.45;-webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 60%);mask-image:linear-gradient(to bottom,#000 0%,transparent 60%)}
+.room .wl{top:-60%;bottom:-60%;left:0;width:150%;transform-origin:0% 50%;transform:rotateY(84deg);opacity:.35;-webkit-mask-image:linear-gradient(to right,#000 0%,transparent 55%);mask-image:linear-gradient(to right,#000 0%,transparent 55%)}
+.room .wr{top:-60%;bottom:-60%;right:0;width:150%;transform-origin:100% 50%;transform:rotateY(-84deg);opacity:.35;-webkit-mask-image:linear-gradient(to left,#000 0%,transparent 55%);mask-image:linear-gradient(to left,#000 0%,transparent 55%)}
+.room b{position:absolute;left:50%;top:48%;width:46%;height:22%;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(120,150,255,.35),transparent);filter:blur(18px)}
+.stage{position:relative;transform-style:preserve-3d;transform:rotateX(calc(20deg + var(--ty,0) * -6deg)) rotateY(calc(var(--tx,0) * 9deg)) scale(.9);transform-origin:50% 55%;transition:transform .25s ease-out}
+.stage-shadow{position:absolute;left:14%;right:14%;bottom:3%;height:10%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.7),transparent);filter:blur(14px);pointer-events:none}
 #radial text{font-family:var(--f-disp)}
 .sh-layers{display:grid;grid-template-columns:repeat(3,1fr);margin-top:40px;border-top:1px solid rgba(238,243,255,.7)}
 .sh-layer{padding:16px 24px 8px 0;min-width:0}
@@ -434,7 +470,9 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   <section id="architecture" class="wrap sh-arch">
     <div class="sh-head"><div class="idx u b"><span class="mute">Architecture</span></div><h2 class="sh-h2">시스템 아키텍처</h2></div>
     <div class="radial-box">
-      <svg id="radial" viewBox="0 0 1100 720" role="img" aria-label="LuLu.ai CORE를 중심으로 게임, 커뮤니티, 기술, 공정성 허브와 각 서비스·기능이 연결된 네트워크 다이어그램"></svg>
+      <div class="room" aria-hidden="true"><i class="cl"></i><i class="wl"></i><i class="wr"></i><i class="fl"></i><b></b></div>
+      <div class="stage-shadow" aria-hidden="true"></div>
+      <div class="stage"><svg id="radial" viewBox="0 0 1100 720" role="img" aria-label="LuLu.ai CORE를 중심으로 게임, 커뮤니티, 기술, 공정성 허브와 각 서비스·기능이 연결된 네트워크 다이어그램"></svg></div>
     </div>
     <div class="sh-layers">
       <div class="sh-layer"><span class="u b">01 — Game_Layer</span><h3>게임</h3><p style="max-width:none"><span style="white-space:nowrap">소셜 포커와 참여형 게임으로</span><br><span style="white-space:nowrap">플레이어와 처음 만나는 접점을 만듭니다.</span></p></div>
@@ -455,10 +493,10 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
       <p>보이지 않는 곳에서, 시스템이 일합니다.</p>
     </div>
     <div class="kps wrap">
-      <article class="kp" style="--i:0"><div class="tx"><span><span class="chip">Key Point 1</span></span><h3>AI</h3><p class="kt">AI 콘텐츠·자동화</p><p style="max-width:none"><span style="white-space:nowrap">대회 운영, 콘텐츠 제작, 고객 대응을</span><br><span style="white-space:nowrap">자동화해 운영 효율을 높입니다.</span></p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><canvas class="ring"></canvas></div></article>
-      <article class="kp" style="--i:1"><div class="tx"><span><span class="chip">Key Point 2</span></span><h3>DATA</h3><p class="kt">데이터 인텔리전스</p><p>플레이 데이터를 분석해 더 나은 게임 경험과 매칭을 설계합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><canvas class="ring"></canvas></div></article>
-      <article class="kp" style="--i:2"><div class="tx"><span><span class="chip">Key Point 3</span></span><h3>FAIR</h3><p class="kt">공정성 모니터링</p><p style="max-width:none"><span style="white-space:nowrap">다중 계정, 담합 등 부정행위 패턴을</span><br>지속적으로 탐지합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><canvas class="ring"></canvas></div></article>
-      <article class="kp" style="--i:3"><div class="tx"><span><span class="chip">Key Point 4</span></span><h3 aria-label="PLATFORM">P<span style="margin-right:.04em">L</span>ATFORM</h3><p class="kt">커스텀 플랫폼</p><p style="max-width:none"><span style="white-space:nowrap">파트너의 커뮤니티에 맞춘 플랫폼을</span><br>빠르게 구축합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><canvas class="ring"></canvas></div></article>
+      <article class="kp" style="--i:0"><div class="tx"><span><span class="chip">Key Point 1</span></span><h3>AI</h3><p class="kt">AI 콘텐츠·자동화</p><p style="max-width:none"><span style="white-space:nowrap">대회 운영, 콘텐츠 제작, 고객 대응을</span><br><span style="white-space:nowrap">자동화해 운영 효율을 높입니다.</span></p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><div class="kv"><svg viewBox="0 0 300 172" preserveAspectRatio="xMidYMid meet"><path class="ic" d="M58,58 L85.7,74 L85.7,106 L58,122 L30.3,106 L30.3,74Z"/><rect class="ic" x="48" y="80" width="20" height="20" rx="2"/><path class="ic" d="M53,80v-5M58,80v-5M63,80v-5M53,100v5M58,100v5M63,100v5M48,85h-5M48,95h-5M68,85h5M68,95h5"/><text x="52.5" y="93" style="font-size:7px;fill:rgba(190,225,235,.75);letter-spacing:.05em">AI</text><line class="d" x1="86" y1="90" x2="214" y2="90"/><g transform="rotate(24 150 90)"><ellipse class="d" cx="150" cy="90" rx="44" ry="13"/><circle class="f" r="2.8"><animateMotion dur="5s" repeatCount="indefinite" path="M106,90 a44,13 0 1,0 88,0 a44,13 0 1,0 -88,0"/></circle><circle class="f" r="2.8"><animateMotion dur="5s" begin="-2.5s" repeatCount="indefinite" path="M106,90 a44,13 0 1,0 88,0 a44,13 0 1,0 -88,0"/></circle></g><g transform="rotate(-24 150 90)"><ellipse class="d" cx="150" cy="90" rx="44" ry="13"/><circle class="f" r="2.8"><animateMotion dur="6s" begin="-1s" repeatCount="indefinite" path="M194,90 a44,13 0 1,0 -88,0 a44,13 0 1,0 88,0"/></circle><circle class="f" r="2.8"><animateMotion dur="6s" begin="-4s" repeatCount="indefinite" path="M194,90 a44,13 0 1,0 -88,0 a44,13 0 1,0 88,0"/></circle></g><path class="l" d="M242,58 L269.7,74 L269.7,106 L242,122 L214.3,106 L214.3,74Z"/><circle class="ic on" cx="242" cy="82" r="6"/><rect class="ic on" x="230" y="92" width="24" height="12" rx="3"/></svg></div></div></article>
+      <article class="kp" style="--i:1"><div class="tx"><span><span class="chip">Key Point 2</span></span><h3>DATA</h3><p class="kt">데이터 인텔리전스</p><p>플레이 데이터를 분석해 더 나은 게임 경험과 매칭을 설계합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><div class="kv"><svg viewBox="0 0 300 172" preserveAspectRatio="xMidYMid meet"><g transform="translate(14 16) scale(.9)"><text x="62" y="144.0" text-anchor="end" style="font-size:5.5px">0</text><text x="62" y="120.8" text-anchor="end" style="font-size:5.5px">10</text><path class="d" d="M70,118.8H262" style="stroke-opacity:.35;stroke-dasharray:1 3"/><text x="62" y="97.6" text-anchor="end" style="font-size:5.5px">20</text><path class="d" d="M70,95.6H262" style="stroke-opacity:.35;stroke-dasharray:1 3"/><text x="62" y="74.4" text-anchor="end" style="font-size:5.5px">30</text><path class="d" d="M70,72.4H262" style="stroke-opacity:.35;stroke-dasharray:1 3"/><text x="62" y="51.2" text-anchor="end" style="font-size:5.5px">40</text><path class="d" d="M70,49.2H262" style="stroke-opacity:.35;stroke-dasharray:1 3"/><text x="62" y="28.0" text-anchor="end" style="font-size:5.5px">50</text><path class="d" d="M70,26.0H262" style="stroke-opacity:.35;stroke-dasharray:1 3"/><path class="d" d="M70.0,142v3"/><text x="70.0" y="154" text-anchor="middle" style="font-size:5.5px">0</text><path class="d" d="M89.2,142v3"/><path class="d" d="M108.4,142v3"/><text x="108.4" y="154" text-anchor="middle" style="font-size:5.5px">2</text><path class="d" d="M127.6,142v3"/><path class="d" d="M146.8,142v3"/><text x="146.8" y="154" text-anchor="middle" style="font-size:5.5px">4</text><path class="d" d="M166.0,142v3"/><path class="d" d="M185.2,142v3"/><text x="185.2" y="154" text-anchor="middle" style="font-size:5.5px">6</text><path class="d" d="M204.4,142v3"/><path class="d" d="M223.6,142v3"/><text x="223.6" y="154" text-anchor="middle" style="font-size:5.5px">8</text><path class="d" d="M242.8,142v3"/><path class="d" d="M262.0,142v3"/><text x="262.0" y="154" text-anchor="middle" style="font-size:5.5px">10</text><path class="d" d="M70,20V142H268" style="stroke-opacity:.8"/><circle class="bb" cx="89.2" cy="118.8" r="4"/><circle class="bb" cx="100.7" cy="78.2" r="6"/><circle class="bb" cx="119.9" cy="103.3" r="3.5"/><circle class="bb" cx="135.3" cy="87.9" r="5"/><circle class="bb" cx="154.5" cy="60.8" r="3.5"/><circle class="bb pulse" cx="173.7" cy="84.0" r="8"/><circle class="bb" cx="191.0" cy="55.0" r="4.5"/><circle class="bb" cx="208.2" cy="95.6" r="3.5"/><circle class="bb pulse" cx="223.6" cy="45.3" r="5.5"/><circle class="bb" cx="244.7" cy="64.7" r="4"/></g></svg></div></div></article>
+      <article class="kp" style="--i:2"><div class="tx"><span><span class="chip">Key Point 3</span></span><h3>FAIR</h3><p class="kt">공정성 모니터링</p><p style="max-width:none"><span style="white-space:nowrap">다중 계정, 담합 등 부정행위 패턴을</span><br>지속적으로 탐지합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><div class="kv"><svg viewBox="0 0 300 172" preserveAspectRatio="xMidYMid meet"><rect x="46" y="44" width="208" height="92" fill="none" stroke="var(--ln)" stroke-opacity=".55" stroke-dasharray="2 3"/><circle class="d" cx="88" cy="80" r="22"/><circle class="d" cx="88" cy="80" r="17" style="stroke-opacity:.6"/><circle class="l spin r" cx="88" cy="80" r="22" stroke-dasharray="85.7 138.2" style="stroke:rgba(150,200,215,.75);filter:none"/><text class="dg" x="88" y="86" text-anchor="middle">24</text><text x="88" y="120" text-anchor="middle">HOURS</text><circle class="d" cx="150" cy="80" r="22"/><circle class="d" cx="150" cy="80" r="17" style="stroke-opacity:.6"/><circle class="l pulse" cx="150" cy="80" r="22" stroke-dasharray="138.2 138.2" style=""/><text class="dg on" x="150" y="86" text-anchor="middle">07</text><text x="150" y="120" text-anchor="middle">DAYS</text><circle class="d" cx="212" cy="80" r="22"/><circle class="d" cx="212" cy="80" r="17" style="stroke-opacity:.6"/><circle class="l spin" cx="212" cy="80" r="22" stroke-dasharray="110.6 138.2" style=""/><text class="dg on" x="212" y="86" text-anchor="middle">99</text><text x="212" y="120" text-anchor="middle">% SCAN</text><text x="46" y="36" style="font-size:6px;fill:var(--ln)">● LIVE MONITORING</text></svg></div></div></article>
+      <article class="kp" style="--i:3"><div class="tx"><span><span class="chip">Key Point 4</span></span><h3 aria-label="PLATFORM">P<span style="margin-right:.04em">L</span>ATFORM</h3><p class="kt">커스텀 플랫폼</p><p style="max-width:none"><span style="white-space:nowrap">파트너의 커뮤니티에 맞춘 플랫폼을</span><br>빠르게 구축합니다.</p><span class="st">ACTIVE</span></div><div class="vis" aria-hidden="true"><div class="kv"><svg viewBox="0 0 300 172" preserveAspectRatio="xMidYMid meet"><rect class="d" x="62" y="32" width="176" height="114" rx="4"/><path class="d" d="M62,44H238"/><circle class="d" cx="69" cy="38" r="1.6"/><circle class="d" cx="75" cy="38" r="1.6"/><circle class="d" cx="81" cy="38" r="1.6"/><rect class="d" x="70" y="52" width="30" height="86"/><path class="d" d="M76,62h18M76,70h14M76,78h16"/><rect class="d" x="108" y="52" width="122" height="30"/><rect class="d" x="108" y="89" width="58" height="49"/><rect class="d" x="172" y="89" width="58" height="49" stroke-dasharray="2 3"/><g class="slide"><rect class="l" x="172" y="89" width="58" height="49"/><path class="ic on" d="M182,102h30M182,110h22M182,118h26"/></g><path class="l pulse" d="M114,60h40M114,68h26" style="stroke-width:1.2"/><path class="ic" d="M246,150l0,-14l10,10l-5,0l3,6l-2,1l-3,-6z" style="fill:#080b13"/></svg></div></div></article>
     </div>
   </section>
 
@@ -773,12 +811,14 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   N.forEach(n=>{const [id,x,y,k,t,sub]=n; const c=colAt(x);
     if(k===0){
       coreHalo=el('circle',{cx:x,cy:y,r:70,fill:'#4f7dff',opacity:.45,filter:'url(#gl2)'},gN);
+      el('path',{d:hex(x,y+12,38),fill:'#1b2a8a',stroke:'#5f7fff','stroke-width':1,opacity:.95},gN);
       el('path',{d:hex(x,y,52),fill:'none',stroke:'#8fb6ff','stroke-width':1.2,opacity:.55},gN);
       coreHex=el('path',{d:hex(x,y,38),fill:'url(#coreFill)',stroke:'#dff0ff','stroke-width':1.5,filter:'url(#gl)'},gN);
       el('path',{d:hex(x,y,16),fill:'none',stroke:'#ffffff','stroke-width':2,opacity:.85},gN);
     }else{
       const r=k===1?20:12;
       el('circle',{cx:x,cy:y,r:r*2.1,fill:c,opacity:k===1?.28:.2,filter:'url(#gl2)'},gN);
+      el('path',{d:hex(x,y+(k===1?7:4),r),fill:'#070a20',stroke:c,'stroke-width':1,opacity:.75},gN);
       el('path',{d:hex(x,y,r),fill:'#0b1030',stroke:c,'stroke-width':k===1?2.2:1.6,filter:'url(#gl)'},gN);
       el('path',{d:hex(x,y,r*.45),fill:c,opacity:.95},gN);
     }
@@ -804,6 +844,9 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   if(!reduce){
     svg.addEventListener('pointermove',e=>{const b=svg.getBoundingClientRect();tx=(e.clientX-b.left)/b.width-.5;ty=(e.clientY-b.top)/b.height-.5;});
     svg.addEventListener('pointerleave',()=>{tx=0;ty=0});
+    const box=svg.closest('.radial-box'), stg=svg.parentNode;
+    box.addEventListener('pointermove',e=>{const b=box.getBoundingClientRect();stg.style.setProperty('--tx',((e.clientX-b.left)/b.width-.5).toFixed(3));stg.style.setProperty('--ty',((e.clientY-b.top)/b.height-.5).toFixed(3));});
+    box.addEventListener('pointerleave',()=>{stg.style.setProperty('--tx',0);stg.style.setProperty('--ty',0);});
     let vis=true; new IntersectionObserver(es=>{vis=es[0].isIntersecting}).observe(svg);
     (function loop(t){ if(vis) draw(t); requestAnimationFrame(loop); })(0);
   }
