@@ -60,10 +60,13 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .links{display:flex;gap:30px;font-family:var(--f-disp);font-size:15px;color:#c2c8dc}
 .links a:hover{color:#fff}
 .right{display:flex;align-items:center;gap:12px}
-.lang{font-family:var(--f-disp);font-size:14px;color:#c2c8dc;display:flex;align-items:center;gap:6px}
+.lang{font-family:var(--f-disp);font-size:13px;color:#7d8299;display:flex;align-items:center;gap:6px;height:34px;padding:0 12px;border-radius:99px;border:1px solid var(--line-2);background:transparent;cursor:pointer}
+@media (max-width:640px){html[lang="en"] span[style*="nowrap"]{white-space:normal!important}}
+.lang i{font-style:normal;opacity:.5}.lang b{font-weight:500}
+.lang b.on{color:#fff}
 .right .pill{height:38px;padding:0 16px;font-size:14px}
 @media (max-width:900px){.links{display:none}}
-@media (max-width:480px){.lang{display:none}}
+@media (max-width:480px){.lang{padding:0 9px}.right .pill{padding:0 12px}}
 
 
 /* ---------- accelerate / about ---------- */
@@ -232,18 +235,18 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* ---------- services: desktop window + phone mockup ---------- */
 .d-poker{--glow:rgba(255,110,40,.3)}.d-trips{--glow:rgba(123,61,255,.34)}.d-tube{--glow:rgba(47,123,255,.34)}
-.web{position:absolute;left:7%;top:45%;transform:translateY(-50%) perspective(1400px) rotateY(16deg) rotateX(7deg) rotateZ(-3deg);transform-origin:60% 50%;width:70%;border-radius:10px;overflow:hidden;background:#0b0d16;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 80px var(--glow);transition:transform .5s}
-.web-bar{display:flex;align-items:center;gap:5px;height:22px;padding:0 10px;background:#15171f;border-bottom:1px solid rgba(255,255,255,.06)}
-.web-bar i{width:7px;height:7px;border-radius:50%;background:#3a3e4c}
+.web{position:absolute;left:14%;top:45%;transform:translateY(-50%) perspective(1400px) rotateY(16deg) rotateX(7deg) rotateZ(-3deg);transform-origin:60% 50%;width:62%;border-radius:10px;overflow:hidden;background:#0b0d16;border:1px solid rgba(255,255,255,.14);box-shadow:0 30px 60px rgba(0,0,0,.55),0 0 80px var(--glow);transition:transform .5s}
+.web-bar{display:flex;align-items:center;gap:4px;height:13px;padding:0 7px;background:#15171f;border-bottom:1px solid rgba(255,255,255,.06)}
+.web-bar i{width:4.5px;height:4.5px;border-radius:50%;background:#3a3e4c}
 .web-bar span{margin-left:8px;flex:1;max-width:55%;height:14px;border-radius:5px;background:rgba(255,255,255,.07);font-family:var(--f-mono);font-size:9px;line-height:14px;padding-left:8px;color:rgba(255,255,255,.6);white-space:nowrap;overflow:hidden}
 .web img{display:block;width:100%;height:auto}
-.mob{position:absolute;right:7%;bottom:9%;height:52%;transform:perspective(900px) rotateY(-14deg) rotateX(6deg) rotateZ(6deg);aspect-ratio:317/686;border-radius:20px;padding:5px;background:#0b0d16;border:1px solid rgba(255,255,255,.2);box-shadow:-18px 24px 50px rgba(0,0,0,.6);transition:transform .5s}
-.mob::before{content:"";position:absolute;left:50%;top:8px;width:30%;height:7px;margin-left:-15%;border-radius:6px;background:#0b0d16;z-index:1}
-.mob img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:15px}
+.mob{position:absolute;right:15%;bottom:12%;height:45%;transform:perspective(900px) rotateY(-14deg) rotateX(6deg) rotateZ(6deg);aspect-ratio:317/698;border-radius:11px;padding:8px 2.5px 2.5px;background:#0b0d16;border:1px solid rgba(255,255,255,.2);box-shadow:-18px 24px 50px rgba(0,0,0,.6);transition:transform .5s}
+.mob::before{content:"";position:absolute;left:50%;top:2.5px;width:24%;height:3.5px;margin-left:-12%;border-radius:5px;background:#262a38;z-index:1}
+.mob img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:8.5px}
 .svc:hover .web{transform:translateY(-52%) perspective(1400px) rotateY(12deg) rotateX(5deg) rotateZ(-2deg)}
 .svc .disp::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,rgba(6,7,14,0) 0%,rgba(6,7,14,0) 66%,rgba(6,7,14,.6) 84%,rgba(6,7,14,.95) 100%)}
 .svc:hover .mob{transform:translateY(-6px) perspective(900px) rotateY(-10deg) rotateX(4deg) rotateZ(4deg)}
-@media (max-width:900px){.web{width:70%;left:5%}.mob{height:60%;bottom:7%}}
+@media (max-width:900px){.web{width:62%;left:13%}.mob{height:52%;bottom:10%;right:14%}}
 
 
 /* ---------- partnership mail composer ---------- */
@@ -269,6 +272,52 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mail-act{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
 .mail-note{margin:0;font-size:12px;color:var(--mute);line-height:1.6}
 @media (max-width:560px){.mail-row{grid-template-columns:1fr}.mail{padding:20px}}
+
+
+/* ---------- partnership page (in-site, brand blue/violet) ---------- */
+.pt[hidden]{display:none!important}
+.pt{position:fixed;inset:0;z-index:90;overflow-y:auto;overscroll-behavior:contain;background:var(--void);color:var(--fg)}
+.pt-bar{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;height:60px;padding-top:env(safe-area-inset-top,0px);padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));background:rgba(4,5,10,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.pt-home{background:none;border:1px solid var(--line-2);color:var(--fg);border-radius:99px;height:36px;padding:0 16px;font:500 14px var(--f-kr);cursor:pointer}
+.pt-home:hover{border-color:var(--cyan)}
+.pt-label{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;color:var(--mute)}
+.pt-in{max-width:1080px;margin:0 auto;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.pt-tag{margin:0 0 18px;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;color:var(--cyan)}
+.pt-grad{background:linear-gradient(90deg,#6fd8ff 0%,#5b8cff 45%,#7d6bff 78%,#a07bff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pt-hero{position:relative;min-height:calc(100svh - 60px);display:flex;align-items:center;overflow:hidden;padding-block:80px}
+.pt-fog{position:absolute;inset:0;pointer-events:none;background:radial-gradient(40% 50% at 78% 30%,rgba(47,107,255,.34),transparent 70%),radial-gradient(45% 55% at 15% 85%,rgba(30,90,220,.3),transparent 70%)}
+.pt-hero .pt-in{position:relative;width:100%}
+.pt-h1{margin:0;font-family:var(--f-kr);font-weight:900;font-size:clamp(40px,7vw,92px);line-height:1.15;letter-spacing:-.04em}
+.pt-sub{margin:26px 0 0;color:#aab1c9;font-size:clamp(15px,1.4vw,18px);max-width:52ch}
+.pt-more{display:inline-flex;gap:8px;align-items:center;margin-top:46px;font-size:14px;color:#c2c8dc;border-bottom:1px solid rgba(255,255,255,.25);padding-bottom:4px}
+.pt-more:hover{color:#fff;border-color:var(--cyan)}
+.pt-who{padding-block:clamp(70px,9vw,120px)}
+.pt-list{border-top:1px solid var(--line)}
+.pt-list article{display:grid;grid-template-columns:clamp(70px,10vw,130px) 1fr;gap:20px;align-items:start;padding:34px 0;border-bottom:1px solid var(--line);transition:background .3s}
+.pt-list article:hover{background:linear-gradient(90deg,rgba(47,107,255,.1),transparent 70%)}
+.pt-list b{font-family:var(--f-disp);font-weight:600;font-size:clamp(40px,5vw,64px);line-height:1;color:transparent;-webkit-text-stroke:1px rgba(110,150,255,.6)}
+.pt-list article:hover b{-webkit-text-stroke:1px #5b8cff;color:rgba(91,140,255,.14)}
+.pt-list h3{margin:6px 0 10px;font-size:clamp(19px,2vw,24px);font-weight:700;letter-spacing:-.02em}
+.pt-list p{margin:0;color:#9aa1bb;font-size:15px;line-height:1.8}
+.pt-vision{padding-block:clamp(60px,8vw,110px);background:radial-gradient(50% 80% at 85% 50%,rgba(47,107,255,.16),transparent 70%)}
+.pt-vgrid{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.pt-vision h2 span{white-space:nowrap}
+.pt-vision h2{margin:0;font-family:var(--f-kr);font-weight:900;font-size:clamp(26px,3.5vw,46px);line-height:1.2;letter-spacing:-.04em}
+.pt-vision .pt-vgrid > p{margin:0;color:#aab1c9;font-size:16px;line-height:1.9}
+.pt-cta{padding-block:clamp(80px,11vw,150px);text-align:center;background:radial-gradient(45% 70% at 50% 60%,rgba(47,107,255,.24),transparent 70%)}
+.pt-cta h2{margin:0;font-family:var(--f-kr);font-weight:800;font-size:clamp(28px,3.6vw,44px);letter-spacing:-.03em}
+.pt-cta p{margin:18px 0 36px;color:#9aa1bb;line-height:1.8}
+.pt-btn{display:inline-flex;align-items:center;gap:10px;height:54px;padding:0 30px;border-radius:99px;font:700 16px var(--f-kr);color:#fff;background:linear-gradient(90deg,#3a62ff 0%,#6a5cff 45%,#8e4dff 100%);box-shadow:0 0 40px rgba(120,80,255,.5);transition:transform .25s,box-shadow .25s}
+.pt-btn:hover{transform:translateY(-2px);box-shadow:0 0 60px rgba(120,80,255,.7)}
+.pt-copy{margin-top:30px;display:grid;justify-items:center;gap:10px}
+.pt-copy > span{font-size:13px;color:var(--mute)}
+.pt-copy-row{display:inline-flex;align-items:center;gap:6px;padding:6px 6px 6px 18px;border-radius:99px;border:1px solid var(--line-2);background:rgba(255,255,255,.04)}
+.pt-copy-row b{font-family:var(--f-mono);font-weight:400;font-size:14px;letter-spacing:.02em;user-select:all}
+.pt-copy-row button{height:32px;padding:0 14px;border-radius:99px;border:0;background:rgba(47,107,255,.25);color:#cfe0ff;font:600 12.5px var(--f-kr);cursor:pointer}
+.pt-copy-row button:hover{background:rgba(47,107,255,.45);color:#fff}
+.pt-foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:26px max(24px,env(safe-area-inset-right,0px)) calc(26px + env(safe-area-inset-bottom,0px)) max(24px,env(safe-area-inset-left,0px));border-top:1px solid var(--line);font-size:12px;color:var(--mute)}
+.pt-foot span:first-child{font-family:var(--f-disp);font-weight:500;color:#c2c8dc}
+@media (max-width:760px){.pt-vision h2 span{white-space:normal}.pt-vgrid{grid-template-columns:1fr}.pt-list article{grid-template-columns:56px 1fr;gap:14px}.pt-list p br,.pt-vision p br{display:none}}
 
 /* ---------- news ---------- */
 .news{padding-bottom:clamp(90px,11vw,150px);scroll-margin-top:90px}
@@ -349,7 +398,7 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   <div class="in">
     <a href="#top" class="logo"><img class="logo-ic" src="data:image/png;base64,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" alt="" width="32" height="30">LuLu.ai</a>
     <nav class="links" aria-label="Sections"><a href="#about">About</a><a href="#architecture">Architecture</a><a href="#technology">Technology</a><a href="#services">Services</a><a href="#news">News</a></nav>
-    <div class="right"><span class="lang">◍ KOR</span><a class="pill" href="#contact" data-mail>제휴 문의</a></div>
+    <div class="right"><button type="button" class="lang" id="langBtn" aria-label="Language"><b data-l="ko">KO</b><i>|</i><b data-l="en">EN</b></button><a class="pill" href="#partnership" data-partner>제휴 문의</a></div>
   </div>
 </header>
 
@@ -365,7 +414,7 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
       <p class="l">게임과 커뮤니티, 그리고 기술. 플레이어가 머무는 모든 순간을 설계합니다.</p>
       <div class="r">
         <a class="tl" href="#services">서비스 보기 <span aria-hidden="true">↓</span></a>
-        <a class="tl solid" href="#contact" data-mail>제휴 문의 <span aria-hidden="true">→</span></a>
+        <a class="tl solid" href="#partnership" data-partner>제휴 문의 <span aria-hidden="true">→</span></a>
       </div>
     </div>
     
@@ -475,7 +524,7 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
       <span class="chip">Contact</span>
       <h2>다음 연결을 함께 만들 파트너를 찾습니다</h2>
       <p>게임, 커뮤니티, 기술 어느 영역이든 새로운 협업을 기다립니다.</p>
-      <a class="pill solid" href="#contact" data-mail>제휴 문의하기 <span class="ar">→</span></a>
+      <a class="pill solid" href="#partnership" data-partner>제휴 문의하기 <span class="ar">→</span></a>
     </div>
   </section>
 </main>
@@ -490,6 +539,44 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   </div>
 </footer>
 
+<div class="pt" id="partnerPage" hidden>
+  <div class="pt-bar"><button type="button" class="pt-home" id="ptHome">← 홈으로</button><span class="pt-label">PARTNERSHIP</span></div>
+  <section class="pt-hero">
+    <div class="pt-fog" aria-hidden="true"></div>
+    <div class="pt-in">
+      <p class="pt-tag">PARTNERSHIP</p>
+      <h1 class="pt-h1"><span>함께 만들어갈</span><br><span class="pt-grad">기회를 찾고 있습니다</span></h1>
+      <p class="pt-sub">룰루닷에이아이는 게임·커뮤니티 생태계를 함께 성장시킬 파트너를 환영합니다.</p>
+      <a class="pt-more" href="#ptWho" id="ptMore">더 알아보기 <span aria-hidden="true">↓</span></a>
+    </div>
+  </section>
+  <section class="pt-who" id="ptWho">
+    <div class="pt-in">
+      <p class="pt-tag">WHO WE WORK WITH</p>
+      <div class="pt-list">
+        <article><b>01</b><div><h3>홀덤펍·공간 사업자</h3><p>대회 운영 시스템, 회원 관리 솔루션 등<br>오프라인 공간에 필요한 디지털 인프라를 함께 구축합니다.</p></div></article>
+        <article><b>02</b><div><h3>인플루언서·크리에이터</h3><p>라이브 방송, 게임 콘텐츠, 커뮤니티 운영 등<br>크리에이터의 영향력을 플랫폼과 연결합니다.</p></div></article>
+        <article><b>03</b><div><h3>기업·브랜드 제휴</h3><p>이벤트, 팀빌딩, 브랜드 콜라보 등<br>게임과 커뮤니티를 활용한 기업 파트너십을 제안합니다.</p></div></article>
+        <article><b>04</b><div><h3>해외·투자 파트너</h3><p>아시아 게임·커뮤니티 시장 진출을 함께 추진할<br>해외 파트너와 투자자를 환영합니다.</p></div></article>
+      </div>
+    </div>
+  </section>
+  <section class="pt-vision">
+    <div class="pt-in pt-vgrid">
+      <div><p class="pt-tag">VISION</p><h2><span>아시아에서 세계로,</span><br><span class="pt-grad">플레이어를 잇는 커뮤니티</span></h2></div>
+      <p>한국에서 시작해 일본·대만 등 아시아 전역,<br>그리고 글로벌 시장으로 확장합니다.<br>하나의 서비스가 아니라<br>게임과 커뮤니티·온오프라인을 잇는 생태계를 만들어갑니다.</p>
+    </div>
+  </section>
+  <section class="pt-cta">
+    <div class="pt-in">
+      <h2>함께할 준비가 되셨나요?</h2>
+      <p>아래 버튼으로 문의해 주시면,<br>담당자가 빠르게 회신드리겠습니다.</p>
+      <a class="pt-btn" href="mailto:support@teamlulu.ai">제휴 문의하기 <span aria-hidden="true">→</span></a>
+      <div class="pt-copy"><span>메일 앱이 열리지 않으면 아래 주소로 보내 주세요.</span><div class="pt-copy-row"><b id="ptMail">support@teamlulu.ai</b><button type="button" id="ptCopy">주소 복사</button></div></div>
+    </div>
+  </section>
+  <footer class="pt-foot"><span>LuLu.ai</span><span>© 2026 LuLu.ai. All rights reserved.</span></footer>
+</div>
 <div class="mail-ov" id="mailOv" hidden>
   <div class="mail" role="dialog" aria-modal="true" aria-labelledby="mailTitle">
     <div class="mail-hd">
@@ -779,13 +866,13 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   const TO='support@teamlulu.ai', ov=document.getElementById('mailOv'), f=document.getElementById('mailForm'), err=document.getElementById('mailErr');
   const g=id=>document.getElementById(id); let last=null;
   function parts(){const n=g('mName').value.trim(),fr=g('mFrom').value.trim();
-    const subj=g('mSubj').value.trim()||'제휴 제안드립니다';
-    return {su:`[제휴 문의] ${subj}`, body:`이름/회사: ${n}\n회신 이메일: ${fr}\n\n${g('mBody').value.trim()}`};}
+    const en=document.documentElement.lang==='en';const subj=g('mSubj').value.trim()||(en?'Partnership proposal':'제휴 제안드립니다');
+    return en?{su:`[Partnership] ${subj}`, body:`Name/Company: ${n}\nReply to: ${fr}\n\n${g('mBody').value.trim()}`}:{su:`[제휴 문의] ${subj}`, body:`이름/회사: ${n}\n회신 이메일: ${fr}\n\n${g('mBody').value.trim()}`};}
   function sync(){const {su,body}=parts();
     g('mailGmail').href='https://mail.google.com/mail/?view=cm&fs=1&to='+encodeURIComponent(TO)+'&su='+encodeURIComponent(su)+'&body='+encodeURIComponent(body);
     g('mailApp').href='mailto:'+TO+'?subject='+encodeURIComponent(su)+'&body='+encodeURIComponent(body);}
   function open(e){e.preventDefault();last=e.currentTarget;ov.hidden=false;document.body.style.overflow='hidden';sync();setTimeout(()=>g('mName').focus(),30);}
-  function close(){ov.hidden=true;document.body.style.overflow='';if(last)last.focus();}
+  function close(){ov.hidden=true;if(document.getElementById('partnerPage').hidden)document.body.style.overflow='';if(last)last.focus();}
   document.querySelectorAll('[data-mail]').forEach(a=>a.addEventListener('click',open));
   g('mailClose').addEventListener('click',close);
   ov.addEventListener('click',e=>{if(e.target===ov)close()});
@@ -793,10 +880,46 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
   f.addEventListener('input',sync); f.addEventListener('change',sync);
   f.addEventListener('submit',e=>e.preventDefault());
   function check(e){const n=g('mName').value.trim(),fr=g('mFrom').value.trim();
-    if(!n||!/^\S+@\S+\.\S+$/.test(fr)){e.preventDefault();err.hidden=false;err.textContent=!n?'이름 또는 회사명을 입력해 주세요.':'회신받을 이메일 주소를 정확히 입력해 주세요.';(!n?g('mName'):g('mFrom')).focus();return;}
+    if(!n||!/^\S+@\S+\.\S+$/.test(fr)){e.preventDefault();err.hidden=false;err.textContent=window.__t(!n?'이름 또는 회사명을 입력해 주세요.':'회신받을 이메일 주소를 정확히 입력해 주세요.');(!n?g('mName'):g('mFrom')).focus();return;}
     err.hidden=true;sync();}
   g('mailGmail').addEventListener('click',check); g('mailApp').addEventListener('click',check);
-  g('mailCopy').addEventListener('click',async()=>{const b=g('mailCopy');try{await navigator.clipboard.writeText(TO);b.textContent='복사됨';}catch(_){const r=document.createRange();r.selectNodeContents(document.querySelector('.mail-to b'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent='선택됨';}setTimeout(()=>b.textContent='주소 복사',1600);});
+  g('mailCopy').addEventListener('click',async()=>{const b=g('mailCopy');try{await navigator.clipboard.writeText(TO);b.textContent=window.__t('복사됨');}catch(_){const r=document.createRange();r.selectNodeContents(document.querySelector('.mail-to b'));const sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent=window.__t('선택됨');}setTimeout(()=>b.textContent=window.__t('주소 복사'),1600);});
+})();
+
+
+/* in-site partnership page */
+(function(){
+  const pg=document.getElementById('partnerPage'); let last=null;
+  function open(e){if(e)e.preventDefault();last=e&&e.currentTarget;pg.hidden=false;pg.scrollTop=0;document.body.style.overflow='hidden';try{history.replaceState(null,'','#partnership')}catch(_){}}
+  function close(){pg.hidden=true;document.body.style.overflow='';try{history.replaceState(null,'',location.pathname+location.search)}catch(_){}if(last)last.focus();}
+  document.querySelectorAll('[data-partner]').forEach(a=>a.addEventListener('click',open));
+  document.getElementById('ptHome').addEventListener('click',close);
+  document.getElementById('ptMore').addEventListener('click',e=>{e.preventDefault();document.getElementById('ptWho').scrollIntoView({behavior:'smooth'})});
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!pg.hidden&&document.getElementById('mailOv').hidden)close()});
+  if(location.hash==='#partnership')open();
+})();
+
+
+/* partnership page: copy email */
+(function(){const b=document.getElementById('ptCopy');if(!b)return;b.addEventListener('click',async()=>{const t=document.getElementById('ptMail');try{await navigator.clipboard.writeText(t.textContent);b.textContent=window.__t('복사됨');}catch(_){const r=document.createRange();r.selectNodeContents(t);const sel=getSelection();sel.removeAllRanges();sel.addRange(r);b.textContent=window.__t('선택됨');}setTimeout(()=>b.textContent=window.__t('주소 복사'),1600);});})();
+
+/* KO / EN language switch */
+(function(){
+  const EN={"제휴 문의": "Partner with us", "게임과 커뮤니티, 그리고 기술. 플레이어가 머무는 모든 순간을 설계합니다.": "Games, community and technology. We design every moment players spend with us.", "서비스 보기": "View services", "룰루닷에이아이는 소셜 포커를 첫 무대로, 플레이어가 만나고 머무는 공간을 직접 만들고 운영합니다. 게임이 접점을 만들고, 커뮤니티가 관계를 만들고, 기술이 그 모든 것을 확장합니다.": "Starting with social poker, LuLu.ai builds and runs the spaces where players meet and stay. Games create the first touchpoint, community builds relationships, and technology scales it all.", "시스템 아키텍처": "System Architecture", "소셜 포커 · 참여형 게임": "Social poker · Interactive games", "클럽 · 소모임 · 큐레이션": "Clubs · Groups · Curation", "AI · 데이터 · 플랫폼": "AI · Data · Platform", "소셜 포커": "Social poker", "실시간 중계": "Live streaming", "글로벌 일정": "Global schedule", "소모임": "Groups", "AI 자동화": "AI automation", "데이터 인텔리전스": "Data intelligence", "커스텀 플랫폼": "Custom platform", "부정행위 탐지": "Cheat detection", "게임": "Game", "소셜 포커와 참여형 게임으로": "Social poker and interactive games", "플레이어와 처음 만나는 접점을 만듭니다.": "create the first touchpoint with players.", "커뮤니티": "Community", "클럽, 소모임, 큐레이션으로 한 번 모인": "Clubs, groups and curation give players", "플레이어가 계속 머물 이유를 만듭니다.": "a reason to keep coming back.", "기술": "Technology", "AI와 데이터, 커스텀 플랫폼으로": "AI, data and custom platforms", "커뮤니티를 빠르게 확장합니다.": "help communities grow fast.", "보이지 않는 곳에서, 시스템이 일합니다.": "Behind the scenes, our systems are at work.", "AI 콘텐츠·자동화": "AI content & automation", "대회 운영, 콘텐츠 제작, 고객 대응을": "Automating tournament ops, content and", "자동화해 운영 효율을 높입니다.": "customer support for higher efficiency.", "플레이 데이터를 분석해 더 나은 게임 경험과 매칭을 설계합니다.": "We analyze play data to design better game experiences and matchmaking.", "공정성 모니터링": "Fairness monitoring", "다중 계정, 담합 등 부정행위 패턴을": "Continuously detecting cheating patterns", "지속적으로 탐지합니다.": "such as multi-accounting and collusion.", "파트너의 커뮤니티에 맞춘 플랫폼을": "Quickly building platforms tailored", "빠르게 구축합니다.": "to our partners' communities.", "플레이어를 잇는 서비스": "Services that connect players", "토너먼트": "Tournaments", "친구와 가벼운 한 판부터 전국 고수와의 대결까지,": "From a casual game with friends to battles with top players,", "실력으로 겨루는 소셜 포커 플랫폼.": "a social poker platform where skill decides.", "투어": "Tours", "다이어리": "Diary", "기록": "Records", "전 세계 포커 토너먼트 일정을 한눈에 보고, 관심 일정을 다이어리에 담아 계획하고 기록하는 포커 토너먼트 노트.": "A poker tournament notebook: see schedules worldwide at a glance, save events to your diary, then plan and log your trips.", "큐레이션": "Curation", "인사이트": "Insights", "큐레이터의 해석을 읽는 큐레이션 서비스. 영상에 맥락과 인사이트를 더해 더 깊이 보는 경험을 만듭니다.": "A curation service where you read curators' takes. Context and insight turn every video into a deeper watch.", "LuLu.ai의 최신 활동과 소식을 전합니다.": "The latest activities and news from LuLu.ai.", "APL x LULU POKER FESTIVAL 개최": "APL x LULU POKER FESTIVAL", "Asia Poker League와 공동 주최하는 대형 포커 페스티벌을 개최합니다.": "A large-scale poker festival co-hosted with Asia Poker League.", "LULU INVITATIONAL 개최": "LULU INVITATIONAL", "초청받은 선수만 오르는 프리미엄 무대.": "A premium stage for invited players only.", "선수·팬·브랜드가 함께한 시즌 클로저.": "A season closer bringing players, fans and brands together.", "LULU x Nightshift Pub 대회 개최": "LULU x Nightshift Pub Tournament", "Nightshift Pub과 협업한 오프라인 홀덤 대회를 개최했습니다.": "An offline Hold'em tournament held in collaboration with Nightshift Pub.", "다음 연결을 함께 만들 파트너를 찾습니다": "Looking for partners to build the next connection", "게임, 커뮤니티, 기술 어느 영역이든 새로운 협업을 기다립니다.": "Games, community or technology — we welcome new collaborations in any area.", "제휴 문의하기": "Contact us for partnership", "(주)룰루닷에이아이 | 대표이사 전창병 | 서울특별시 강남구 테헤란로 412, 12층 (대치동, 알레르망타워)": "LuLu.ai Co., Ltd. | CEO 전창병 | 12F, Allerman Tower, 412 Teheran-ro, Gangnam-gu, Seoul, Korea", "사업자등록번호 413-81-09870 | 통신판매업 신고 2025-서울강남-05619 | 전화 1661-1731": "Business Reg. No. 413-81-09870 | Mail-order Sales Reg. 2025-서울강남-05619 | Tel. +82 1661-1731", "제휴 문의 메일 작성": "Write a partnership inquiry", "받는 사람": "To", "주소 복사": "Copy address", "이름 / 회사명": "Name / Company", "회신받을 이메일": "Your email", "제목": "Subject", "내용": "Message", "Gmail로 보내기": "Send with Gmail", "기본 메일 앱으로 보내기": "Send with mail app", "버튼을 누르면 작성한 내용이 채워진 메일 작성 화면이 새 창으로 열립니다. 열리지 않으면 위 주소로 직접 보내 주세요.": "Clicking a button opens a pre-filled email in a new window. If nothing opens, please email the address above directly.", "LuLu.ai CORE를 중심으로 게임, 커뮤니티, 기술, 공정성 허브와 각 서비스·기능이 연결된 네트워크 다이어그램": "Network diagram with the LuLu.ai CORE at the centre, connected to Game, Community, Tech and Fair Play hubs and their services", "닫기": "Close", "제안하실 내용을 자유롭게 적어 주세요.": "Tell us about your proposal.", "복사됨": "Copied", "선택됨": "Selected", "이름 또는 회사명을 입력해 주세요.": "Please enter your name or company.", "회신받을 이메일 주소를 정확히 입력해 주세요.": "Please enter a valid reply email address.", "← 홈으로": "← Home", "함께 만들어갈": "Let's find", "기회를 찾고 있습니다": "opportunities together", "룰루닷에이아이는 게임·커뮤니티 생태계를 함께 성장시킬 파트너를 환영합니다.": "LuLu.ai welcomes partners who want to grow the gaming and community ecosystem with us.", "더 알아보기": "Learn more", "홀덤펍·공간 사업자": "Hold'em pubs & venues", "대회 운영 시스템, 회원 관리 솔루션 등": "Tournament operation systems, member management and more —", "오프라인 공간에 필요한 디지털 인프라를 함께 구축합니다.": "we build the digital infrastructure offline venues need.", "인플루언서·크리에이터": "Influencers & creators", "라이브 방송, 게임 콘텐츠, 커뮤니티 운영 등": "Live streaming, game content, community management —", "크리에이터의 영향력을 플랫폼과 연결합니다.": "we connect creators' influence with our platforms.", "기업·브랜드 제휴": "Corporate & brand partnerships", "이벤트, 팀빌딩, 브랜드 콜라보 등": "Events, team building, brand collaborations —", "게임과 커뮤니티를 활용한 기업 파트너십을 제안합니다.": "corporate partnerships powered by games and community.", "해외·투자 파트너": "Global & investment partners", "아시아 게임·커뮤니티 시장 진출을 함께 추진할": "We welcome overseas partners and investors", "해외 파트너와 투자자를 환영합니다.": "to expand into Asia's gaming and community markets together.", "아시아에서 세계로,": "From Asia to the world,", "플레이어를 잇는 커뮤니티": "a community that connects players", "한국에서 시작해 일본·대만 등 아시아 전역,": "Starting in Korea, we are expanding across Asia, including Japan and Taiwan,", "그리고 글로벌 시장으로 확장합니다.": "and on to global markets.", "하나의 서비스가 아니라": "Not just a single service —", "게임과 커뮤니티·온오프라인을 잇는 생태계를 만들어갑니다.": "we're building an ecosystem linking games, community, online and offline.", "함께할 준비가 되셨나요?": "Ready to work with us?", "아래 버튼으로 문의해 주시면,": "Reach out with the button below", "담당자가 빠르게 회신드리겠습니다.": "and our team will get back to you quickly.", "메일 앱이 열리지 않으면 아래 주소로 보내 주세요.": "If your mail app doesn't open, send your inquiry to the address below."};
+  window.__t=k=>document.documentElement.lang==='en'&&EN[k]?EN[k]:k;
+  const nodes=[];const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:n=>n.parentElement.closest('script,style')?2:1});
+  let n;while(n=w.nextNode()){const t=n.nodeValue.trim();if(EN[t])nodes.push([n,n.nodeValue,n.nodeValue.replace(t,EN[t])]);}
+  const attrs=[];document.querySelectorAll('[placeholder],[aria-label],[alt]').forEach(e=>['placeholder','aria-label','alt'].forEach(a=>{const v=e.getAttribute(a);if(v&&EN[v])attrs.push([e,a,v,EN[v]])}));
+  const btn=document.getElementById('langBtn');
+  function set(l){const en=l==='en';document.documentElement.lang=en?'en':'ko';
+    nodes.forEach(([n,ko,e])=>n.nodeValue=en?e:ko);attrs.forEach(([e,a,ko,v])=>e.setAttribute(a,en?v:ko));
+    btn.querySelectorAll('b').forEach(b=>b.classList.toggle('on',b.dataset.l===l));
+    try{localStorage.setItem('lulu-lang',l)}catch(_){}}
+  btn.addEventListener('click',()=>set(document.documentElement.lang==='en'?'ko':'en'));
+  let init='ko';try{init=localStorage.getItem('lulu-lang')||''}catch(_){}
+  if(location.hash==='#en')init='en';else if(location.hash==='#ko')init='ko';
+  else if(!init)init=(navigator.language||'ko').toLowerCase().startsWith('ko')?'ko':'en';
+  set(init);
 })();
 </script>
 
