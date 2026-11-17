@@ -1,4 +1,5 @@
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
 <title>LuLu.ai System A3 — Mix Edition</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -387,6 +388,7 @@ footer p{margin:0;font-size:12px;line-height:1.9;color:var(--mute);max-width:80c
 .sky-side a:hover{color:var(--paper-on-ink)}
 .sky-foot{position:absolute;left:0;right:0;bottom:64px;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:end;pointer-events:none}
 .sky-foot a{pointer-events:auto}
+.hero-sky::after{content:"";position:absolute;left:0;right:0;bottom:0;height:clamp(160px,30%,320px);z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(4,5,10,0) 0%,rgba(4,5,10,.35) 35%,rgba(4,5,10,.8) 70%,var(--void) 100%)}
 .sky-under{position:absolute;left:0;right:0;top:calc(var(--tb,62%) + clamp(22px,3vw,40px));z-index:2;display:flex;flex-direction:column;align-items:center;gap:clamp(22px,2.6vw,34px);padding:0 16px;text-align:center;pointer-events:none}
 .sky-under a{pointer-events:auto}
 .sky-under .en{color:var(--paper-on-ink);letter-spacing:.28em;font-size:11px;margin-bottom:calc(clamp(22px,2.6vw,34px) * -.45)}
@@ -652,16 +654,33 @@ html[lang="en"] .svc p.en2{max-width:none}
     o.font=F(size); o.textAlign='center'; o.textBaseline='middle'; o.fillStyle='#fff';
     const cy=H*(small?.4:.43); o.fillText('LULU.AI',W/2,cy);
     const tw0=o.measureText('LULU.AI').width, x0=W/2-tw0/2, dotL=x0+o.measureText('LULU').width, dotR=x0+o.measureText('LULU.').width;
-    const data=o.getImageData(0,0,W,H).data; const step=Math.max(3.6,size/(small?14:21));
-    glyph={size,cy}; sec.style.setProperty('--tb',(cy+size*.4)+'px');
+    const data=o.getImageData(0,0,W,H).data; const step=Math.max(4,size/(small?14:30));
+    glyph={size,cy,x0,tw0,step}; sec.style.setProperty('--tb',(cy+size*.4)+'px');
+    const inG=(x,y)=>{x=Math.round(x);y=Math.round(y);return x>=0&&y>=0&&x<W&&y<H&&data[(y*W+x)*4+3]>=128};
+    const bx=Math.floor(x0-step*4), by=Math.floor(cy-size*.66), bw=Math.ceil(tw0+step*8), bh=Math.ceil(size*1.32);
+    glyph.box=[bx,by,bw,bh];
+    const nz=(x,y)=>.5+.25*Math.sin(x*.045+y*.02)+.15*Math.sin(x*.013-y*.05+1.7)+.1*Math.sin((x+y)*.09);
     title=[];
-    for(let y=step/2;y<H;y+=step) for(let x=step/2;x<W;x+=step){
-      if(data[(Math.round(y)*W+Math.round(x))*4+3]<150) continue;
-      const hx=x+rnd(-step*.3,step*.3), hy=y+rnd(-step*.3,step*.3);
-      title.push({hx,hy,x:reduce?hx:rnd(-W*.1,W*1.1),y:reduce?hy:rnd(-H*.1,H*1.1),vx:0,vy:0,s:rnd(.7,1.7),tw:rnd(0,6.3),c:Math.random()<.05,m:hx>=dotL-1&&hx<=dotR+1&&Math.random()<.85});
+    // LED matrix: dim background cells + lit glyph cells
+    const mat=document.createElement('canvas'); mat.width=bw; mat.height=bh; const mc=mat.getContext('2d');
+    const gx0=x0-Math.ceil((x0-bx)/step)*step;
+    for(let y=by+step/2;y<by+bh;y+=step) for(let x=gx0+step/2;x<bx+bw;x+=step){
+      const tx=Math.max(0,Math.min(1,(x-x0)/tw0)), base=[Math.round(95+80*tx),Math.round(165-35*tx),255];
+      if(!inG(x,y)){ // halo / background matrix
+        let near=0; for(let k=1;k<=2&&!near;k++) if(inG(x+step*k,y)||inG(x-step*k,y)||inG(x,y+step*k)||inG(x,y-step*k)) near=k;
+        const sq=step*.5, a=near===1?.16:near===2?.09:.045;
+        mc.fillStyle=`rgba(${base[0]},${base[1]},${base[2]},${a})`; mc.fillRect(x-bx-sq/2,y-by-sq/2,sq,sq); continue;}
+      let inner=0; for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[2,0],[-2,0],[0,2],[0,-2]]) if(inG(x+dx*step,y+dy*step)) inner++;
+      const bb=Math.max(small?.6:.3,Math.min(1,(small?.45:.25)+.55*(inner/8)+.35*(nz(x,y)-.5)+rnd(-.12,.12)));
+      const hot=Math.pow(bb,2.5)*.7, col=base.map(v=>Math.round(v+(255-v)*hot));
+      title.push({hx:x,hy:y,x:reduce?x:rnd(-W*.1,W*1.1),y:reduce?y:rnd(-H*.1,H*1.1),vx:0,vy:0,b:bb,sq:step*(.5+.22*bb),col:`rgb(${col.join(',')})`,tw:rnd(0,6.3),m:x>=dotL-1&&x<=dotR+1});
     }
-    tE=[]; const lim=(step*1.6)**2;
-    for(let i=0;i<title.length;i++) for(let j=i+1;j<title.length;j++){const a=title[i],b=title[j];const d=(a.hx-b.hx)**2+(a.hy-b.hy)**2; if(d<lim && Math.random()<.72) tE.push([i,j,d<step*step*1.1?1:.6]);}
+    // scanlines over the title block
+    const scl=document.createElement('canvas'); scl.width=bw; scl.height=bh; const sc=scl.getContext('2d'); sc.fillStyle='rgba(0,0,0,.28)';
+    for(let y=0;y<bh;y+=3) sc.fillRect(0,y,bw,1);
+    glyph.mat=mat; glyph.scl=scl;
+    const gl=document.createElement('canvas'); gl.width=Math.ceil(bw/3); gl.height=Math.ceil(bh/3); glyph.gl=gl;
+    tE=[];
     // --- field stars
     const n=Math.max(70,Math.min(240,Math.round(W*H/8000)));
     stars=[]; for(let i=0;i<n;i++) stars.push({hx:rnd(0,W),hy:rnd(0,H),ph:rnd(0,6.3),amp:rnd(2,9),s:rnd(.4,1.5),b:rnd(.25,.9),dz:rnd(.3,1)});
@@ -701,20 +720,30 @@ html[lang="en"] .svc p.en2{max-width:none}
     });
     // faint nebula of the solid glyphs, for legibility
     if(glyph){ctx.save();ctx.font=`400 ${glyph.size}px "Archivo Black","Arial Black",sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-      const k=Math.min(1,t/2600);ctx.globalAlpha=reduce?.05:.05*k;ctx.fillStyle='#cfe9ff';ctx.fillText('LULU.AI',W/2,glyph.cy);ctx.restore();}
+      const k=reduce?1:Math.min(1,t/2600), cy=glyph.cy, gs=glyph.size;
+      // quiet the field behind the title
+      ctx.globalAlpha=k; const vg=ctx.createRadialGradient(W/2,cy,0,W/2,cy,W*.48); vg.addColorStop(0,'rgba(7,7,12,.62)'); vg.addColorStop(.6,'rgba(7,7,12,.35)'); vg.addColorStop(1,'rgba(7,7,12,0)');
+      ctx.fillStyle=vg; ctx.save(); ctx.translate(W/2,cy); ctx.scale(1,.42); ctx.translate(-W/2,-cy); ctx.fillRect(0,cy-W*.5,W,W); ctx.restore();
+      // guides: dashed frame lines + corner marks around the title block
+      const [bx,by,bw,bh]=glyph.box; ctx.globalAlpha=.22*k; ctx.strokeStyle='#7f9cff'; ctx.lineWidth=1; ctx.setLineDash([3,5]); ctx.beginPath();
+      [by+bh*.08,by+bh*.92].forEach(y=>{ctx.moveTo(0,y);ctx.lineTo(W,y);}); [bx+glyph.step*2,bx+bw-glyph.step*2].forEach(x=>{ctx.moveTo(x,by-bh*.25);ctx.lineTo(x,by+bh*1.25);}); ctx.stroke(); ctx.setLineDash([]);
+      if(W>=640){ctx.globalAlpha=.7*k; ctx.strokeStyle='#a8b8ff'; ctx.lineWidth=1.4; const cs=glyph.step*1.4;
+      [[bx+glyph.step*2,by+bh*.08],[bx+bw-glyph.step*2,by+bh*.92]].forEach(([x,y])=>{ctx.beginPath();ctx.moveTo(x-cs,y);ctx.lineTo(x+cs,y);ctx.moveTo(x,y-cs);ctx.lineTo(x,y+cs);ctx.moveTo(x-cs*.6,y-cs*.6);ctx.lineTo(x+cs*.6,y+cs*.6);ctx.moveTo(x+cs*.6,y-cs*.6);ctx.lineTo(x-cs*.6,y+cs*.6);ctx.stroke();});}
+      ctx.globalAlpha=k; ctx.drawImage(glyph.mat,bx,by);
+      ctx.restore();}
     // hub → title tethers
     ctx.strokeStyle='rgba(255,255,255,.06)'; ctx.setLineDash([2,4]); ctx.beginPath();
     ht.forEach(([h,i])=>{ctx.moveTo(Hb[h][0],Hb[h][1]);ctx.lineTo(title[i].x,title[i].y);}); ctx.stroke(); ctx.setLineDash([]);
-    // title lines
-    ctx.lineWidth=.7;
-    ctx.strokeStyle='rgba(235,238,245,.30)'; ctx.beginPath();
-    tE.forEach(([a,b,k])=>{ if(k===1){const A=title[a],B=title[b];ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);} }); ctx.stroke();
-    ctx.strokeStyle='rgba(235,238,245,.14)'; ctx.beginPath();
-    tE.forEach(([a,b,k])=>{ if(k!==1){const A=title[a],B=title[b];ctx.moveTo(A.x,A.y);ctx.lineTo(B.x,B.y);} }); ctx.stroke();
     // stars
     S.forEach(([x,y],i)=>{const s=stars[i];ctx.globalAlpha=s.b*(.65+.35*Math.sin(t*.002+s.ph));ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(x,y,s.s,0,6.283);ctx.fill();});
     // title stars
-    title.forEach(p=>{ctx.globalAlpha=.75+.25*Math.sin(t*.003+p.tw);ctx.fillStyle=p.m?'#45e3ef':p.c?'#22d3ee':'#fff';ctx.beginPath();ctx.arc(p.x,p.y,p.m?p.s*1.25:p.s,0,6.283);ctx.fill();});
+    if(glyph){const [bx,by,bw,bh]=glyph.box, g=glyph.gl, gc=g.getContext('2d'), sY=by+((t*.09)%(bh*1.6))-bh*.3;
+      gc.clearRect(0,0,g.width,g.height);
+      title.forEach(p=>{const scan=Math.max(0,1-Math.abs(p.y-sY)/(glyph.step*3)); p.a=Math.min(1,p.b*(.86+.14*Math.sin(t*.004+p.tw))+scan*.45);
+        gc.globalAlpha=p.a; gc.fillStyle=p.col; gc.fillRect((p.x-bx)/3-p.sq/6,(p.y-by)/3-p.sq/6,p.sq/3,p.sq/3);});
+      ctx.save(); ctx.globalCompositeOperation='lighter'; ctx.filter=`blur(${Math.max(4,glyph.step*1.3)}px)`; ctx.globalAlpha=.95; ctx.drawImage(g,bx,by,bw,bh); ctx.filter=`blur(${Math.max(10,glyph.step*3.5)}px)`; ctx.globalAlpha=.7; ctx.drawImage(g,bx,by,bw,bh); ctx.filter='none'; ctx.globalAlpha=.55; ctx.drawImage(g,bx,by,bw,bh); ctx.restore();
+      title.forEach(p=>{ctx.globalAlpha=p.a; ctx.fillStyle=p.col; ctx.fillRect(p.x-p.sq/2,p.y-p.sq/2,p.sq,p.sq);});
+      ctx.globalAlpha=.5; ctx.drawImage(glyph.scl,bx,by);}
     ctx.globalAlpha=1;
     // hubs + labels
     hubs.forEach((h,i)=>{const [x,y]=Hb[i];
@@ -960,5 +989,6 @@ html[lang="en"] .svc p.en2{max-width:none}
   set(init);
 })();
 </script>
+
 
 </body></html>
